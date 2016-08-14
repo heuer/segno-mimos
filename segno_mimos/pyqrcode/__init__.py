@@ -17,7 +17,6 @@ from __future__ import absolute_import, unicode_literals
 import io
 import segno
 try:
-    bytes = str
     str = unicode
 except NameError:
     pass
@@ -66,7 +65,6 @@ class PyQRCode(object):
                 encoding = 'shift_jis'
             elif segno_qrcode.mode == 'byte':
                 encoding = 'utf-8'
-        #TODO!
         if segno_qrcode.mode == 'byte':
             if isinstance(content, bytes):
                 try:
