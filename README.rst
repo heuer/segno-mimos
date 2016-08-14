@@ -1,0 +1,3 @@
+Segno Mimos - PyQRCode Emulation
+================================
+
