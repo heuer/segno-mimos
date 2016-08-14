@@ -30,8 +30,8 @@ def read(*filenames, **kwargs):
             buf.append(f.read())
     return sep.join(buf)
 
-version = '0.1.0'# re.search(r'''^__version__ = ["']([^'"]+)['"]''',
-                 #   read('segno_mimos/pyqrcode/__init__.py'), flags=re.MULTILINE).group(1)
+version = re.search(r'''^__version__ = ["']([^'"]+)['"]''',
+                    read('segno_mimos/__init__.py'), flags=re.MULTILINE).group(1)
 
 setup(
     name='segno-mimos',
