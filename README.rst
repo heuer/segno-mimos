@@ -40,7 +40,9 @@ changes:
     >>> print(url.terminal(quiet_zone=1))
 
 
-The underlying :py:class:`segno.QRCode` instance can be accessed as follows:
+The underlying ``segno.QRCode`` instance can be accessed as follows:
+
+.. code-block:: python
 
     >>> from segno_mimos import pyqrcode
     >>> # qr behaves like pyqrcode.QRCode
@@ -82,6 +84,8 @@ with:
 
 
 If your code uses any of the standard image factories, use the following import:
+
+.. code-block:: python
 
     >>> from segno_mimos import qrcode
     >>> import segno_mimos.qrcode.image.svg
