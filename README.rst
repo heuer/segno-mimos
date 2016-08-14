@@ -39,6 +39,20 @@ changes:
     >>> url.eps('uca-url.eps', scale=2)
     >>> print(url.terminal(quiet_zone=1))
 
+Please note, that ``qr = pyqrcode.QrCode('Dark side of the Moon')`` DOES NOT
+work, use the factory function ``pyqrcode.create()``.
+
+Not all features of PyQRCode are supported:
+
+.. code-block:: python
+
+    >>> from segno_mimos import pyqrcode
+    >>> qr = pyqrcode.create('Michelle')
+    >>> qr.xbm(scale=10)
+Traceback (most recent call last):
+    ...
+NotImplementedError: This method is not supported
+
 
 The underlying ``segno.QRCode`` instance can be accessed as follows:
 

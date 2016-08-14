@@ -66,11 +66,12 @@ class PyQRCode(object):
                 encoding = 'shift_jis'
             elif segno_qrcode.mode == 'byte':
                 encoding = 'utf-8'
+        #TODO!
         if segno_qrcode.mode == 'byte':
             if isinstance(content, bytes):
                 try:
                     self.data = content.decode('iso-8859-1')
-                except UnicodeError:
+                except (AttributeError, UnicodeError):
                     self.data = content.decode('utf-8')
             else:
                 try:
