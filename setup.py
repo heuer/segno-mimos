@@ -37,7 +37,7 @@ setup(
     name='segno-mimos',
     version=version,
     url='https://github.com/heuer/segno-mimos/',
-    description='Emulating PyQRCode and Python-QR Code API using the Segno (Micro) QR Code generator',
+    description='Emulating PyQRCode and qrcode API using the Segno (Micro) QR Code generator',
     long_description=read('README.rst', 'CHANGES.rst'),
     license='BSD',
     author='Lars Heuer',
