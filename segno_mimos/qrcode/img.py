@@ -37,7 +37,7 @@ class DefaultImage(_BaseImage):
     This class is similar to qrcode.image.pil.PilImage and is able to
     save a QR Code in PNG and EPS format.
     """
-    allowed_kinds = ('PNG', 'EPS')
+    allowed_kinds = ('PNG', 'EPS', 'PDF')
 
     def __init__(self, qrcode, box_size, border, kind=None):
         super(DefaultImage, self).__init__(qrcode, box_size, border)
@@ -62,6 +62,12 @@ class DefaultImage(_BaseImage):
             if not background_was_set:
                 config['background'] = None
             self._qrcode.eps(stream, **config)
+            return
+        elif fmt in ('PDF', 'pdf'):
+            # Remove background color if not set explictly
+            if not background_was_set:
+                config['background'] = None
+            self._qrcode.pdf(stream, **config)
             return
         raise ValueError('Unsupported format "{}"'.format(format))
 

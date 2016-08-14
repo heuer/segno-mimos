@@ -95,7 +95,7 @@ class QRCode:
             self.make()
         image_factory = image_factory or self.image_factory
         _check_valid_factory(image_factory)
-        if image_factory is None or image_factory.kind in ('PNG', 'EPS'):
+        if image_factory is None or image_factory.kind in ('PNG', 'EPS', 'PDF'):
             return img.DefaultImage(self.segno_qrcode, self.box_size, self.border, image_factory.kind if image_factory is not None else None)
         elif image_factory.kind == 'SVG':
             config = dict(image_factory.config, background=image_factory.background)
