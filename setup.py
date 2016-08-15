@@ -14,7 +14,7 @@ Setup script.
 :license:      BSD License
 """
 from __future__ import absolute_import, unicode_literals
-from setuptools import setup
+from setuptools import setup, find_packages
 import os
 import io
 import re
@@ -43,6 +43,7 @@ setup(
     author='Lars Heuer',
     author_email='heuer@semagia.com',
     platforms=['any'],
+    packages=find_packages(exclude=['docs', 'tests']),
     install_requires=['segno'],
     include_package_data=True,
     keywords=['QR Code', 'Micro QR Code', 'ISO/IEC 18004',
