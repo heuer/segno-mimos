@@ -49,9 +49,9 @@ Not all features of PyQRCode are supported:
     >>> from segno_mimos import pyqrcode
     >>> qr = pyqrcode.create('Michelle')
     >>> qr.xbm(scale=10)
-Traceback (most recent call last):
-    ...
-NotImplementedError: This method is not supported
+    Traceback (most recent call last):
+        ...
+    NotImplementedError: This method is not supported
 
 
 The underlying ``segno.QRCode`` instance can be accessed as follows:
@@ -97,7 +97,7 @@ with:
     >>> img.save('qrcode.eps', kind='eps')
 
 
-If your code uses any of the standard image factories, use the following import:
+If your code uses any of the standard image factories, use the following imports:
 
 .. code-block:: python
 
