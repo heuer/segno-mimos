@@ -9,13 +9,18 @@
 from __future__ import absolute_import, unicode_literals, print_function
 import warnings
 import segno
-from . import constants, exceptions, util, img
+from . import constants, exceptions, util, _img
 from segno.writers import check_valid_scale, check_valid_border
 from segno_mimos.qrcode.image.base import BaseImage
 try:
     from qrcode.image.base import BaseImage as qrcodeBaseImage
 except ImportError:
     qrcodeBaseImage = BaseImage
+
+try:  # pragma: no cover
+    range = xrange  # Python 2
+except NameError:
+    pass
 
 
 def make(data=None, **kw):
@@ -96,10 +101,10 @@ class QRCode:
         image_factory = image_factory or self.image_factory
         _check_valid_factory(image_factory)
         if image_factory is None or image_factory.kind in ('PNG', 'EPS', 'PDF'):
-            return img.DefaultImage(self.segno_qrcode, self.box_size, self.border, image_factory.kind if image_factory is not None else None)
+            return _img.DefaultImage(self.segno_qrcode, self.box_size, self.border, image_factory.kind if image_factory is not None else None)
         elif image_factory.kind == 'SVG':
             config = dict(image_factory.config, background=image_factory.background)
-            return img.SVGImage(self.segno_qrcode, self.box_size, self.border, config)
+            return _img.SVGImage(self.segno_qrcode, self.box_size, self.border, config)
         im = image_factory(self.border, self.modules_count, self.box_size, **kw)
         for r in range(self.modules_count):
             for c in range(self.modules_count):
