@@ -150,8 +150,8 @@ class PyQRCode(object):
                                svgclass=svgclass, lineclass=lineclass,
                                omitsize=omithw)
 
-    def eps(self, file, scale=1, module_color=(0, 0, 0),
-            background=None, quiet_zone=4):
+    def eps(self, file, scale=1, module_color=(0, 0, 0), background=None,
+            quiet_zone=4):
         self.segno_qrcode.save(file, kind='eps', scale=scale, border=quiet_zone,
                                color=module_color, background=background)
 
