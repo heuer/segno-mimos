@@ -122,8 +122,9 @@ class PyQRCode(object):
 
     def png(self, file, scale=1, module_color=(0, 0, 0, 255),
             background=(255, 255, 255, 255), quiet_zone=4):
-        return self.segno_qrcode.png(file, scale=scale, border=quiet_zone,
-                                     color=module_color, background=background)
+        self.segno_qrcode.save(file, kind='png', scale=scale,
+                               border=quiet_zone, color=module_color,
+                               background=background)
 
     def png_as_base64_str(self, scale=1, module_color=(0, 0, 0, 255),
                           background=(255, 255, 255, 255), quiet_zone=4):
@@ -143,16 +144,16 @@ class PyQRCode(object):
         if debug:
             import warnings
             warnings.warn('debug is not supported')
-        self.segno_qrcode.svg(file, scale=scale, border=quiet_zone,
-                              color=module_color, background=background,
-                              xmldecl=xmldecl, svgns=svgns, title=title,
-                              svgclass=svgclass, lineclass=lineclass,
-                              omitsize=omithw)
+        self.segno_qrcode.save(file, kind='svg', scale=scale, border=quiet_zone,
+                               color=module_color, background=background,
+                               xmldecl=xmldecl, svgns=svgns, title=title,
+                               svgclass=svgclass, lineclass=lineclass,
+                               omitsize=omithw)
 
     def eps(self, file, scale=1, module_color=(0, 0, 0),
             background=None, quiet_zone=4):
-        self.segno_qrcode.eps(file, scale=scale, border=quiet_zone,
-                              color=module_color, background=background)
+        self.segno_qrcode.save(file, kind='eps', scale=scale, border=quiet_zone,
+                               color=module_color, background=background)
 
     def text(self, quiet_zone=4):
         out = io.StringIO()

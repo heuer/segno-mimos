@@ -55,19 +55,19 @@ class DefaultImage(_BaseImage):
             config['background'] = None
         config.update(kw)
         if fmt in (None, 'PNG', 'png'):
-            self._qrcode.png(stream, **config)
+            self._qrcode.save(stream, kind='png', **config)
             return
         elif fmt in ('EPS', 'eps'):
             # Remove background color if not set explictly
             if not background_was_set:
                 config['background'] = None
-            self._qrcode.eps(stream, **config)
+            self._qrcode.save(stream, kind='eps', **config)
             return
         elif fmt in ('PDF', 'pdf'):
             # Remove background color if not set explictly
             if not background_was_set:
                 config['background'] = None
-            self._qrcode.pdf(stream, **config)
+            self._qrcode.save(stream, kind='pdf', **config)
             return
         raise ValueError('Unsupported format "{}"'.format(format))
 
@@ -93,4 +93,4 @@ class SVGImage(_BaseImage):
         conf.update(self.config)
         # Let keywords override default config and factory config
         conf.update(kw)
-        self._qrcode.svg(stream, **conf)
+        self._qrcode.save(stream, kind='svg', **conf)
