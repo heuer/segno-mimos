@@ -1,7 +1,7 @@
 Changes
 =======
 
-0.1.5 -- 2016-08-dd
+0.1.5 -- 2016-08-16
 -------------------
 * Updated docs
 * Removed return statement from ``PyQRCode.png()``
