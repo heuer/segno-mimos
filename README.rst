@@ -71,7 +71,7 @@ Replace qrcode with Segno
 -------------------------
 
 Since qrcode has a more complex API (i.e. factories) replacing it with
-Segno can be more complex; in the simpliest case replace
+Segno can be more difficult; in the simpliest case replace
 
 .. code-block:: python
 
