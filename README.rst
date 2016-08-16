@@ -13,8 +13,7 @@ just requires `Segno`_ to be installed.
 Replace PyQRCode with Segno
 ---------------------------
 
-PyQRCode and Segno have a similiar API, but they differ in details. To replace
-PyQRCode with Segno, change
+To replace PyQRCode with Segno, change
 
 .. code-block:: python
 
