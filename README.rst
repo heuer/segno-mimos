@@ -9,6 +9,8 @@ Currently, `PyQRCode`_ and `qrcode`_ are supported.
 Segno Mimos does not require any of 3rd party libs (like Pillow or PyPNG), it
 just requires `Segno`_ to be installed.
 
+Since both libs do not support Micro QR Codes, this lib creates QR Codes, only.
+
 
 Replace PyQRCode with Segno
 ---------------------------
