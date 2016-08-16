@@ -100,11 +100,14 @@ class QRCode:
             self.make()
         image_factory = image_factory or self.image_factory
         _check_valid_factory(image_factory)
-        if image_factory is None or image_factory.kind in ('PNG', 'EPS', 'PDF'):
-            return _img.DefaultImage(self.segno_qrcode, self.box_size, self.border, image_factory.kind if image_factory is not None else None)
-        elif image_factory.kind == 'SVG':
-            config = dict(image_factory.config, background=image_factory.background)
-            return _img.SVGImage(self.segno_qrcode, self.box_size, self.border, config)
+        if image_factory is None or image_factory.kind in ('PNG', 'EPS', 'PDF', 'SVG'):
+            config = {}
+            try:
+                config = image_factory.config
+                config.update(background=image_factory.background)
+            except AttributeError:
+                pass
+            return _img.QRCodeImage(self.segno_qrcode, self.box_size, self.border, config, (image_factory.kind if image_factory is not None else None))
         im = image_factory(self.border, self.modules_count, self.box_size, **kw)
         for r in range(self.modules_count):
             for c in range(self.modules_count):

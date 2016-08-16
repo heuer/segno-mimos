@@ -18,35 +18,28 @@ provide the same API (aside from ``save``).
 from __future__ import absolute_import, unicode_literals, division
 
 
-class _BaseImage(object):
-
+class QRCodeImage(object):
+    """\
+    This class is almost similar to qrcode.image.pil.PilImage and is able to
+    save a QR Code in all output formats which are common by qrcode and Segno.
+    """
     kind = None
+    allowed_kinds = ('PNG', 'EPS', 'PDF', 'SVG')
 
-    def __init__(self, segno_qrcode, box_size, border):
+    def __init__(self, segno_qrcode, box_size, border, config, kind):
         self._qrcode = segno_qrcode
         self.box_size = box_size  # scale
         self.border = border
+        self.config = config
         self.width = len(segno_qrcode.matrix)
-
-    def save(self, stream, format=None, **kw):
-        raise NotImplementedError()
-
-
-class DefaultImage(_BaseImage):
-    """\
-    This class is similar to qrcode.image.pil.PilImage and is able to
-    save a QR Code in PNG and EPS format.
-    """
-    allowed_kinds = ('PNG', 'EPS', 'PDF')
-
-    def __init__(self, qrcode, box_size, border, kind=None):
-        super(DefaultImage, self).__init__(qrcode, box_size, border)
         self.kind = kind
 
     def save(self, stream, format=None, kind=None, **kw):
         fmt = format
         if fmt is None:
             fmt = kind or self.kind
+        if fmt is not None:
+            fmt = fmt.lower()
         background_was_set = 'back_color' in kw
         config = dict(scale=self.box_size, border=self.border,
                       color=kw.pop('fill_color', '#000'),
@@ -54,43 +47,20 @@ class DefaultImage(_BaseImage):
         if config['background'] == 'transparent':
             config['background'] = None
         config.update(kw)
-        if fmt in (None, 'PNG', 'png'):
+        if fmt in (None, 'png'):
             self._qrcode.save(stream, kind='png', **config)
             return
-        elif fmt in ('EPS', 'eps'):
+        if not background_was_set and fmt in ('eps', 'pdf', 'svg'):
             # Remove background color if not set explictly
-            if not background_was_set:
-                config['background'] = None
-            self._qrcode.save(stream, kind='eps', **config)
+            config['background'] = None
+        if fmt in ('eps', 'pdf'):
+            self._qrcode.save(stream, kind=fmt, **config)
             return
-        elif fmt in ('PDF', 'pdf'):
-            # Remove background color if not set explictly
-            if not background_was_set:
-                config['background'] = None
-            self._qrcode.save(stream, kind='pdf', **config)
+        elif fmt == 'svg':
+            # Default qrcode SVG config
+            svg_config = dict(scale=self.box_size / 10, unit='mm', svgversion=1.1,
+                        border=self.border)
+            config.update(svg_config)
+            self._qrcode.save(stream, kind='svg', **config)
             return
         raise ValueError('Unsupported format "{}"'.format(format))
-
-
-class SVGImage(_BaseImage):
-    """\
-    This class provides the functionality of the qrcode.image.svg classes.
-    Note: The QR Code is always saved as path and never as composition of rects.
-    """
-    kind = 'SVG'
-
-    def __init__(self, qrcode, box_size, border, config):
-        super(SVGImage, self).__init__(qrcode, box_size, border)
-        self.config = config
-
-    def save(self, stream, kind=None, **kw):
-        if kind not in (None, 'SVG', 'svg'):
-            raise ValueError('Unknown kind "{}"'.format(kind))
-        # Default config
-        conf = dict(scale=self.box_size / 10, unit='mm', svgversion=1.1,
-                    border=self.border)
-        # Update with factory config
-        conf.update(self.config)
-        # Let keywords override default config and factory config
-        conf.update(kw)
-        self._qrcode.save(stream, kind='svg', **conf)
