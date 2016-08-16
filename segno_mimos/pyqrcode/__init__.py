@@ -157,7 +157,8 @@ class PyQRCode(object):
 
     def text(self, quiet_zone=4):
         out = io.StringIO()
-        self.segno_qrcode.txt(out, border=quiet_zone, color='1', background='0')
+        self.segno_qrcode.save(out, kind='txt', border=quiet_zone, color='1',
+                               background='0')
         return out.getvalue()
 
     def terminal(self, module_color='default', background='reverse',
