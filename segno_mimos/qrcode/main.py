@@ -9,7 +9,7 @@
 from __future__ import absolute_import, unicode_literals, print_function
 import warnings
 import segno
-from . import constants, exceptions, util, _img
+from . import constants, exceptions, util
 from segno.writers import check_valid_scale, check_valid_border
 from segno_mimos.qrcode.image.base import BaseImage
 try:
@@ -101,13 +101,19 @@ class QRCode:
         image_factory = image_factory or self.image_factory
         _check_valid_factory(image_factory)
         if image_factory is None or image_factory.kind in ('PNG', 'EPS', 'PDF', 'SVG'):
-            config = {}
-            try:
-                config = image_factory.config
-                config.update(background=image_factory.background)
-            except AttributeError:
-                pass
-            return _img.QRCodeImage(self.segno_qrcode, self.box_size, self.border, config, (image_factory.kind if image_factory is not None else None))
+            config = dict(scale=self.box_size, border=self.border)
+            kind = None
+            if image_factory is not None:
+                kind = image_factory.kind
+                try:
+                    config.update(image_factory.config)
+                except AttributeError:
+                    pass
+                try:
+                    config['background'] = image_factory.background
+                except AttributeError:
+                    pass
+            return _Image(self.segno_qrcode, config, kind)
         im = image_factory(self.border, self.modules_count, self.box_size, **kw)
         for r in range(self.modules_count):
             for c in range(self.modules_count):
@@ -127,3 +133,46 @@ class QRCode:
             code.append(x_border + module + x_border)
         code += [[False]*width] * self.border
         return code
+
+
+class _Image(object):
+    """\
+    This class is almost similar to qrcode.image.pil.PilImage and is able to
+    save a QR Code in all output formats which are common by qrcode and Segno.
+    """
+    kind = None
+    allowed_kinds = ('PNG', 'EPS', 'PDF', 'SVG')
+
+    def __init__(self, segno_qrcode, config, kind):
+        self._qrcode = segno_qrcode
+        self.default_config = config
+        self.width = len(segno_qrcode.matrix)
+        self.kind = kind
+
+    def save(self, stream, format=None, kind=None, **kw):
+        fmt = format
+        if fmt is None:
+            fmt = kind or self.kind
+        if fmt is not None:
+            fmt = fmt.lower()
+        config = dict(self.default_config)
+        background_was_set = 'back_color' in kw or 'background' in kw or 'background' in config
+        config['color'] = kw.pop('fill_color', config.get('color', '#000'))
+        config['background'] = kw.pop('back_color', kw.pop('background', config.get('background', '#fff')))
+        if config['background'] == 'transparent':
+            config['background'] = None
+        if fmt == 'svg':
+            # SVG default config
+            svg_config = dict(scale=config.get('scale', 10) / 10, unit='mm', svgversion=1.1)
+            config.update(svg_config)
+        config.update(kw)
+        if fmt in (None, 'png'):
+            self._qrcode.save(stream, kind='png', **config)
+            return
+        if not background_was_set and fmt in ('eps', 'pdf', 'svg'):
+            # Remove background color if not set explictly
+            config['background'] = None
+        if fmt in ('eps', 'pdf', 'svg'):
+            self._qrcode.save(stream, kind=fmt, **config)
+            return
+        raise ValueError('Unsupported format "{}"'.format(fmt))
