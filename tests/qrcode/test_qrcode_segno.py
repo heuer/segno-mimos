@@ -87,6 +87,45 @@ def test_svgfill_image2():
     eq_('red', path.attrib.get('fill'))
 
 
+def test_change_kind():
+    qr = qrcode.QRCode()
+    qr.add_data('test')
+    img = qr.make_image()
+    out = io.BytesIO()
+    img.save(out)
+    png_magic_no = b'\211PNG\r\n\032\n'
+    ok_(out.getvalue().startswith(png_magic_no))
+    out = io.BytesIO()
+    img.save(out, kind='svg')
+    ok_(out.getvalue().startswith(b'<?xml'))
+
+
+def test_change_format():
+    qr = qrcode.QRCode()
+    qr.add_data('test')
+    img = qr.make_image()
+    out = io.BytesIO()
+    img.save(out)
+    png_magic_no = b'\211PNG\r\n\032\n'
+    ok_(out.getvalue().startswith(png_magic_no))
+    out = io.BytesIO()
+    img.save(out, format='svg')
+    ok_(out.getvalue().startswith(b'<?xml'))
+
+
+def test_eps():
+    qr = qrcode.QRCode()
+    qr.add_data('test')
+    img = qr.make_image()
+    out = io.BytesIO()
+    img.save(out)
+    png_magic_no = b'\211PNG\r\n\032\n'
+    ok_(out.getvalue().startswith(png_magic_no))
+    out = io.StringIO()
+    img.save(out, format='eps')
+    ok_(out.getvalue().startswith('%!PS-Adobe-3.0 EPSF-3.0'))
+
+
 class SVGFillRed(qrcode.image.svg.SvgFillImage):
     background = 'red'
 

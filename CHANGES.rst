@@ -2,9 +2,11 @@ Changes
 =======
 
 
-0.1.6 -- 2016-mm-dd
+0.1.6 -- 2016-08-17
 -------------------
-
+* Internal code changes
+* qrcode: Image could not be saved in another output format using the
+  "format" or "kind" parameter. Fixed.
 
 
 0.1.5 -- 2016-08-16
