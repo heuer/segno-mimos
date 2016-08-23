@@ -10,7 +10,7 @@ from __future__ import absolute_import, unicode_literals, print_function
 import warnings
 import segno
 from . import constants, exceptions, util
-from segno.writers import check_valid_scale, check_valid_border
+from segno.utils import check_valid_scale, check_valid_border
 from segno_mimos.qrcode.image.base import BaseImage
 try:
     from qrcode.image.base import BaseImage as qrcodeBaseImage
