@@ -3,7 +3,7 @@ Changes
 
 0.1.7 -- 2016-08-24
 -------------------
-* Adapt Segno's API changes
+* Adapt Segno's 0.1.6 API changes
 
 
 0.1.6 -- 2016-08-17
