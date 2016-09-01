@@ -76,7 +76,7 @@ class QRCode:
         segno_qrcode = segno.make_qr(self.data_list or '', mode=None,
                                      version=self.version,
                                      error=self.error_correction,
-                                     eci=False)
+                                     eci=False, boost_error=False)
         self.data_cache = True
         self.segno_qrcode = segno_qrcode
         self.modules_count = len(segno_qrcode.matrix)

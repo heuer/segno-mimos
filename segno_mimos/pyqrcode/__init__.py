@@ -51,7 +51,7 @@ def create(content, error='H', version=None, mode=None, encoding=None):
     return PyQRCode(segno.make_qr(content, error=translate_error(error),
                                   version=version,
                                   mode=translate_mode(mode),
-                                  encoding=encoding),
+                                  encoding=encoding, boost_error=False),
                     content, encoding)
 
 
