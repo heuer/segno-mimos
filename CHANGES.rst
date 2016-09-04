@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.1.8 -- 2016-09-04
+-------------------
+* Disable automatic error incrementation (Segno >= 0.1.7) (neither PyQRCode
+  nor qrcode support it)
+
+
 0.1.7 -- 2016-08-24
 -------------------
 * Adapt Segno's 0.1.6 API changes
