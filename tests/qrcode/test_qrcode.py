@@ -11,7 +11,9 @@ import segno_mimos.qrcode.image.pure
 #    pymaging_png = None
 pymaging_png = True
 
-import segno_mimos.qrcode as qrcode
+from segno_mimos import qrcode
+from segno_mimos.qrcode.image import pure
+import segno_mimos.qrcode.image.pil
 from segno_mimos.qrcode.image.base import BaseImage
 from segno_mimos.qrcode.exceptions import DataOverflowError
 from segno_mimos.qrcode.util import (
@@ -150,7 +152,7 @@ class QRCodeTests(unittest.TestCase):
     def test_render_pymaging_png(self):
         qr = qrcode.QRCode()
         qr.add_data(UNICODE_TEXT)
-        img = qr.make_image(image_factory=qrcode.image.pure.PymagingImage)
+        img = qr.make_image(image_factory=pure.PymagingImage)
         with warnings.catch_warnings():
             if six.PY3:
                 warnings.simplefilter('ignore', DeprecationWarning)
@@ -160,7 +162,7 @@ class QRCodeTests(unittest.TestCase):
     def test_render_pymaging_png_bad_kind(self):
         qr = qrcode.QRCode()
         qr.add_data(UNICODE_TEXT)
-        img = qr.make_image(image_factory=qrcode.image.pure.PymagingImage)
+        img = qr.make_image(image_factory=pure.PymagingImage)
         self.assertRaises(ValueError, img.save, six.BytesIO(), kind='FISH')
 
     @unittest.skip('Does not work in PyPy')  #TODO!

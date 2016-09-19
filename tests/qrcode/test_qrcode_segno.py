@@ -15,7 +15,7 @@ Some additional tests against qrcode
 from __future__ import absolute_import, unicode_literals
 import io
 import xml.etree.ElementTree as etree
-from nose.tools import eq_, ok_
+import pytest
 import segno_mimos.qrcode as qrcode
 import segno_mimos.qrcode.image.svg
 
@@ -53,12 +53,11 @@ def test_svgfragment():
     img = qr.make_image(image_factory=qrcode.image.svg.SvgPathImage)
     out = io.BytesIO()
     img.save(out)
-    ok_(out.getvalue().startswith(b'<?xml'))
+    assert out.getvalue().startswith(b'<?xml')
     img = qr.make_image(image_factory=qrcode.image.svg.SvgFragmentImage)
     out = io.BytesIO()
     img.save(out)
-    ok_(not out.getvalue().startswith(b'<?xml'))
-    ok_(out.getvalue().startswith(b'<svg'))
+    assert out.getvalue().startswith(b'<svg')
 
 
 def test_svgfill_image():
@@ -70,8 +69,8 @@ def test_svgfill_image():
     root = _parse_xml(out)
     # Background should be the first path in the doc
     path = _get_path(root)
-    ok_(path is not None)
-    eq_('#fff', path.attrib.get('fill'))
+    assert path is not None
+    assert '#fff' == path.attrib.get('fill')
 
 
 def test_svgfill_image2():
@@ -83,8 +82,8 @@ def test_svgfill_image2():
     root = _parse_xml(out)
     # Background should be the first path in the doc
     path = _get_path(root)
-    ok_(path is not None)
-    eq_('red', path.attrib.get('fill'))
+    assert path is not None
+    assert 'red' == path.attrib.get('fill')
 
 
 def test_change_kind():
@@ -94,10 +93,10 @@ def test_change_kind():
     out = io.BytesIO()
     img.save(out)
     png_magic_no = b'\211PNG\r\n\032\n'
-    ok_(out.getvalue().startswith(png_magic_no))
+    assert out.getvalue().startswith(png_magic_no)
     out = io.BytesIO()
     img.save(out, kind='svg')
-    ok_(out.getvalue().startswith(b'<?xml'))
+    assert out.getvalue().startswith(b'<?xml')
 
 
 def test_change_format():
@@ -107,10 +106,10 @@ def test_change_format():
     out = io.BytesIO()
     img.save(out)
     png_magic_no = b'\211PNG\r\n\032\n'
-    ok_(out.getvalue().startswith(png_magic_no))
+    assert out.getvalue().startswith(png_magic_no)
     out = io.BytesIO()
     img.save(out, format='svg')
-    ok_(out.getvalue().startswith(b'<?xml'))
+    assert out.getvalue().startswith(b'<?xml')
 
 
 def test_eps():
@@ -120,10 +119,10 @@ def test_eps():
     out = io.BytesIO()
     img.save(out)
     png_magic_no = b'\211PNG\r\n\032\n'
-    ok_(out.getvalue().startswith(png_magic_no))
+    assert out.getvalue().startswith(png_magic_no)
     out = io.StringIO()
     img.save(out, format='eps')
-    ok_(out.getvalue().startswith('%!PS-Adobe-3.0 EPSF-3.0'))
+    assert out.getvalue().startswith('%!PS-Adobe-3.0 EPSF-3.0')
 
 
 class SVGFillRed(qrcode.image.svg.SvgFillImage):
@@ -131,5 +130,4 @@ class SVGFillRed(qrcode.image.svg.SvgFillImage):
 
 
 if __name__ == '__main__':
-    import nose
-    nose.core.runmodule()
+    pytest.main([__file__])

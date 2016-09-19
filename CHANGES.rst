@@ -1,6 +1,14 @@
 Changes
 =======
 
+0.1.9 -- 2016-09-19
+-------------------
+* Added ``install_as_qrcode`` and ``install_as_pyqrcode`` which may be useful
+  if qrcode or PyQRCode is used and should be replaced by Segno without code
+  changes.
+* Fixed Python packaging.
+
+
 0.1.8 -- 2016-09-04
 -------------------
 * Disable automatic error incrementation (Segno >= 0.1.7) (neither PyQRCode
