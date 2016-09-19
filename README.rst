@@ -15,7 +15,16 @@ Since both libs do not support Micro QR Codes, this lib creates QR Codes, only.
 Replace PyQRCode with Segno
 ---------------------------
 
-To replace PyQRCode with Segno, change
+If a 3rd party lib uses PyQRCode and and changing the code of the lib isn't
+possible, use:
+
+.. code-block:: python
+
+    >>> import segno_mimos
+    >>> segno_mimos.install_as_pyqrcode()
+
+
+To replace PyQRCode with Segno in your code, change
 
 .. code-block:: python
 
@@ -66,9 +75,19 @@ The underlying ``segno.QRCode`` instance can be accessed as follows:
     >>> segno_qr = qr.segno_qrcode
 
 
-
 Replace qrcode with Segno
 -------------------------
+
+If a 3rd-party lib uses qrcode, use the following code snippet before
+importing the 3rd-party lib:
+
+.. code-block:: python
+
+    >>> import segno_mimos
+    >>> segno_mimos.install_as_qrcode()
+
+The 3rd-party lib should use Segno automatically.
+
 
 Since qrcode has a more complex API (i.e. factories) replacing it with
 Segno can be more difficult; in the simpliest case replace
@@ -78,7 +97,7 @@ Segno can be more difficult; in the simpliest case replace
     >>> import qrcode
 
 
-with:
+in your code with:
 
 .. code-block:: python
 

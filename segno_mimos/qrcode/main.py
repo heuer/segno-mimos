@@ -31,7 +31,7 @@ def make(data=None, **kw):
 
 def _check_valid_factory(img_factory):
     if img_factory is not None:
-        assert issubclass(img_factory, (BaseImage, qrcodeBaseImage))
+        assert issubclass(img_factory, (BaseImage, qrcodeBaseImage)) or hasattr(img_factory, 'drawrect')
 
 
 class QRCode:
