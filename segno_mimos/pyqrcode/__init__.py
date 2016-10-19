@@ -136,7 +136,8 @@ class PyQRCode(object):
 
     def xbm(self, scale=1, quiet_zone=4):
         out = io.StringIO()
-        self.segno_qrcode.save(out, kind='xbm', scale=scale, border=quiet_zone)
+        self.segno_qrcode.save(out, kind='xbm', scale=scale, border=quiet_zone,
+                               prefix='im')
         return out.getvalue()
 
     def svg(self, file, scale=1, module_color='#000', background=None,
