@@ -1,6 +1,12 @@
 Changes
 =======
 
+0.2.0 -- 2016-mm-dd
+-------------------
+* Support for PyQRCode's qrcode.xbm() which returns the QR Code as XBM image
+  (requires Segno >= 0.2.4).
+
+
 0.1.9 -- 2016-09-19
 -------------------
 * Added ``install_as_qrcode`` and ``install_as_pyqrcode`` which may be useful
