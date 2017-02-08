@@ -21,6 +21,9 @@ try:
 except NameError:
     pass
 
+# <https://wiki.python.org/moin/PortingToPy3k/BilingualQuickRef#New_Style_Classes>
+__metaclass__ = type
+
 # PyQRCodes provides more notations for error levels
 # This dict maps the (non-standard) error levels to a standard indicator
 _ERROR_LEVEL = {'7%': 'L', .7: 'L', '15%': 'M', .15: 'M', '25%': 'Q',
@@ -55,7 +58,7 @@ def create(content, error='H', version=None, mode=None, encoding=None):
                     content, encoding)
 
 
-class PyQRCode(object):
+class PyQRCode:
 
     def __init__(self, segno_qrcode, content, encoding):
         self.segno_qrcode = segno_qrcode
