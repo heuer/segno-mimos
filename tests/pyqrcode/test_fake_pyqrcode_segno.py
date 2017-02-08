@@ -14,7 +14,7 @@ import pytest
 import io
 
 
-def test_svgfragment():
+def test_install_segno_as_pyqrcode():
     segno_mimos.install_as_pyqrcode()
     import pyqrcode
     qr = pyqrcode.create('Hello')
