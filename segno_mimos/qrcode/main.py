@@ -22,6 +22,9 @@ try:  # pragma: no cover
 except NameError:
     pass
 
+# <https://wiki.python.org/moin/PortingToPy3k/BilingualQuickRef#New_Style_Classes>
+__metaclass__ = type
+
 
 def make(data=None, **kw):
     qr = QRCode(**kw)
@@ -135,7 +138,7 @@ class QRCode:
         return code
 
 
-class _Image(object):
+class _Image:
     """\
     This class is almost similar to qrcode.image.pil.PilImage and is able to
     save a QR Code in all output formats which are common by qrcode and Segno.
