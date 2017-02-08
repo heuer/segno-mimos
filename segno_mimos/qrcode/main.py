@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (c) 2011, Lincoln Loop
-# Copyright (c) 2016 -- Lars Heuer - Semagia <http://www.semagia.com/>.
+# Copyright (c) 2016 - 2017 -- Lars Heuer - Semagia <http://www.semagia.com/>.
 # All rights reserved.
 #
 # License: BSD License
@@ -71,12 +71,12 @@ class QRCode:
         self.makeImpl(False, None)
 
     def makeImpl(self, test, mask_pattern):
-        if test is True or mask_pattern is not None:
-            warnings.warn('Neither "test" nor "mask_pattern" is supported')
+        if test:
+            warnings.warn('"test" is not supported')
         segno_qrcode = segno.make_qr(self.data_list or '', mode=None,
                                      version=self.version,
                                      error=self.error_correction,
-                                     eci=False, boost_error=False)
+                                     eci=False, boost_error=False, mask=mask_pattern)
         self.data_cache = True
         self.segno_qrcode = segno_qrcode
         self.modules_count = len(segno_qrcode.matrix)

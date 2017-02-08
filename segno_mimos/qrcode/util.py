@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
 # Copyright (c) 2011, Lincoln Loop
-# Copyright (c) 2015 -- Lars Heuer - Semagia <http://www.semagia.com/>.
+# Copyright (c) 2015 - 2017 -- Lars Heuer - Semagia <http://www.semagia.com/>.
 # All rights reserved.
 #
 # License: BSD License
@@ -49,7 +49,7 @@ class QRData(tuple):
     """
     def __new__(cls, data, mode=None, encoding=None, check_data=True):
         seg = prepare_data(data, mode, encoding)[0]
-        return tuple.__new__(cls, (seg.data, seg.mode, seg.encoding))
+        return tuple.__new__(cls, (data, seg.mode, seg.encoding))
 
     data = property(itemgetter(0))
     mode = property(itemgetter(1))

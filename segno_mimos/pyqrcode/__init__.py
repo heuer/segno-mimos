@@ -135,7 +135,10 @@ class PyQRCode(object):
         return data_uri[len('data:image/png;base64,'):]
 
     def xbm(self, scale=1, quiet_zone=4):
-        raise NotImplementedError('This method is not supported')
+        out = io.StringIO()
+        self.segno_qrcode.save(out, kind='xbm', scale=scale, border=quiet_zone,
+                               name='im')
+        return out.getvalue()
 
     def svg(self, file, scale=1, module_color='#000', background=None,
             quiet_zone=4, xmldecl=True, svgns=True, title=None,
