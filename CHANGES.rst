@@ -1,10 +1,13 @@
 Changes
 =======
 
-0.2.0 -- 2016-mm-dd
+0.2.0 -- 2017-02-08
 -------------------
-* Support for PyQRCode's qrcode.xbm() which returns the QR Code as XBM image
-  (requires Segno >= 0.2.4).
+* Support for PyQRCode's qrcode.xbm() method which returns the QR Code as
+  XBM image (requires Segno >= 0.2.4).
+* Support for python-qrcode data optimization.
+* Better test coverage
+* Tests against Python 3.6 (tested against PyPy, Py 2.6, 2.7, 3.4, 3.6)
 
 
 0.1.9 -- 2016-09-19
