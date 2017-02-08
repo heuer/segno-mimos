@@ -15,7 +15,7 @@ Since both libs do not support Micro QR Codes, this lib creates QR Codes, only.
 Replace PyQRCode with Segno
 ---------------------------
 
-If a 3rd party lib uses PyQRCode and and changing the code of the lib isn't
+If a 3rd party lib uses PyQRCode and changing the code of the lib isn't
 possible, use:
 
 .. code-block:: python
