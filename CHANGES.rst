@@ -1,6 +1,11 @@
 Changes
 =======
 
+0.2.1 -- 2017-02-08
+-------------------
+* Fixed typos and internal changes to support Py 3 more prominent
+
+
 0.2.0 -- 2017-02-08
 -------------------
 * Support for PyQRCode's qrcode.xbm() method which returns the QR Code as
