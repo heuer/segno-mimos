@@ -13,7 +13,6 @@ pymaging_png = True
 
 from segno_mimos import qrcode
 from segno_mimos.qrcode.image import pure
-import segno_mimos.qrcode.image.pil
 from segno_mimos.qrcode.image.base import BaseImage
 from segno_mimos.qrcode.exceptions import DataOverflowError
 from segno_mimos.qrcode.util import (
@@ -165,7 +164,6 @@ class QRCodeTests(unittest.TestCase):
         img = qr.make_image(image_factory=pure.PymagingImage)
         self.assertRaises(ValueError, img.save, six.BytesIO(), kind='FISH')
 
-    @unittest.skip('Does not work in PyPy')  #TODO!
     def test_optimize(self):
         qr = qrcode.QRCode()
         text = 'A1abc12345def1HELLOa'
@@ -179,7 +177,6 @@ class QRCodeTests(unittest.TestCase):
         self.assertEqual(qr.data_list[4].mode, MODE_8BIT_BYTE)
         self.assertEqual(qr.version, 2)
 
-    @unittest.skip('Does not work yet')  #TODO!
     def test_optimize_size(self):
         text = 'A1abc12345123451234512345def1HELLOHELLOHELLOHELLOa' * 5
 
