@@ -1,3 +1,8 @@
+No longer active, use the better, smaller API from Segno. ;)
+
+
+
+
 Segno Mimos - Adapt Segno's API to other QR Code libs
 =====================================================
 
